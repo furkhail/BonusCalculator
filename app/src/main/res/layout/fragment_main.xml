@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="dnd.furkhail.bonuscalculator.presentation.view.fragment.MainFragment"
+    tools:showIn="@layout/activity_main"
+    android:fillViewport="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameLbl"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/abilitiesLbls"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameLbl">
+
+            <TextView
+                android:text="@string/strenght"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/strenghtLbl" />
+
+            <TextView
+                android:text="@string/dexterity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dexterityLbl" />
+
+            <TextView
+                android:text="@string/constitution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/constitutionLbl" />
+
+            <TextView
+                android:text="@string/intelligence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/intelligenceLbl" />
+
+            <TextView
+                android:text="@string/wisdom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/wisdomLbl" />
+
+            <TextView
+                android:text="@string/charisma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/charismaLbl" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameLbl"
+            android:layout_toRightOf="@id/abilitiesLbls">
+
+            <TextView
+                android:text="@string/strenght"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/strenghtNumLbl" />
+
+            <TextView
+                android:text="@string/dexterity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dexterityNumLbl" />
+
+            <TextView
+                android:text="@string/constitution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/constitutionNumLbl" />
+
+            <TextView
+                android:text="@string/intelligence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/intelligenceNumLbl" />
+
+            <TextView
+                android:text="@string/wisdom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/wisdomNumLbl" />
+
+            <TextView
+                android:text="@string/charisma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/charismaNumLbl" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

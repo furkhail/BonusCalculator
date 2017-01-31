@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BonusCalculator</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="strenght">Fuerza</string>
+    <string name="dexterity">Destreza</string>
+    <string name="constitution">Constitución</string>
+    <string name="intelligence">Inteligencia</string>
+    <string name="wisdom">Sabiduría</string>
+    <string name="charisma">Carisma</string>
+
+</resources>
