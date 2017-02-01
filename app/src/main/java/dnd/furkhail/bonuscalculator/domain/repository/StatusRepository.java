@@ -7,7 +7,7 @@ import rx.Observable;
 
 public interface StatusRepository {
 
-    void addStatus(Status status);
+    Observable<List<Status>> addStatus(Status status);
 
     void removeStatus(String name);
 

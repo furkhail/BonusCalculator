@@ -1,5 +1,6 @@
 package dnd.furkhail.bonuscalculator.domain.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Status {
@@ -7,6 +8,13 @@ public class Status {
     private boolean active;
     private String duration;
     private List<Bonus> bonuses;
+
+    public Status(String name) {
+        this.name = name;
+        active = true;
+        duration = "1";
+        bonuses = new ArrayList<>();
+    }
 
     public Status(String name, boolean active, String duration, List<Bonus> bonuses) {
         this.name = name;

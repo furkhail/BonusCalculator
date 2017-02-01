@@ -21,8 +21,8 @@ public class StatusDataRepository implements StatusRepository {
     }
 
     @Override
-    public void addStatus(Status status) {
-        statusCache.addStatus(status);
+    public Observable<List<Status>> addStatus(Status status) {
+        return statusCache.addStatus(status);
     }
 
     @Override

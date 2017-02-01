@@ -2,15 +2,19 @@ package dnd.furkhail.bonuscalculator.presentation.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.OnClick;
 import dnd.furkhail.bonuscalculator.R;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.presentation.presenter.StatusListPresenter;
@@ -42,6 +46,16 @@ public class MainFragment extends BaseFragment implements StatusListView {
     }
 
     @Override
+    public void showAddStatusDialog() {
+        new MaterialDialog.Builder(context())
+                .content("añade un estado")
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .input("nombre estado", "",
+                        (dialog, input) -> presenter.addStatus(input.toString()))
+                .show();
+    }
+
+    @Override
     public void renderStatusList(List<Status> statusListt) {
         Log.d(TAG, "renderStatusList() called with: statusListt = [" + statusListt + "]");
     }
@@ -49,6 +63,11 @@ public class MainFragment extends BaseFragment implements StatusListView {
     @Override
     public void viewStatus(Status status) {
 
+    }
+
+    @OnClick(R.id.fab)
+    private void pressFab(){
+        showAddStatusDialog();
     }
 
     @Override
@@ -80,4 +99,5 @@ public class MainFragment extends BaseFragment implements StatusListView {
     public Context context() {
         return getContext();
     }
+
 }

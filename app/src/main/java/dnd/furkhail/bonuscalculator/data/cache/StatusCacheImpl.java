@@ -8,15 +8,15 @@ import rx.Observable;
 
 public class StatusCacheImpl implements StatusCache {
 
-    private List<Status> statusList;
-
     private static final String STATUS_LIST_KEY="status_list_key";
 
-    private DiskPrefser diskPrefser;
+    private List<Status> statusList;
 
-    public StatusCacheImpl(DiskPrefser diskPrefser) {
+    private DiskCache diskCache;
+
+    public StatusCacheImpl(DiskCache diskCache) {
         this.statusList = new ArrayList<>();
-        this.diskPrefser = diskPrefser;
+        this.diskCache = diskCache;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class StatusCacheImpl implements StatusCache {
 
     @Override
     public Observable<List<Status>> disk() {
-        Observable<List<Status>> observable = diskPrefser.get(STATUS_LIST_KEY);
+        Observable<List<Status>> observable = diskCache.get(STATUS_LIST_KEY);
         return observable.doOnNext(data -> statusList = data);
     }
 
@@ -41,11 +41,12 @@ public class StatusCacheImpl implements StatusCache {
     }
 
     @Override
-    public void addStatus(Status status) {
+    public Observable<List<Status>> addStatus(Status status) {
         if(!statusList.contains(status)){
             statusList.add(status);
         }
-        diskPrefser.put(STATUS_LIST_KEY, statusList);
+        diskCache.put(STATUS_LIST_KEY, statusList);
+        return memory();
     }
 
     @Override
@@ -55,7 +56,7 @@ public class StatusCacheImpl implements StatusCache {
                 statusList.remove(s);
             }
         }
-        diskPrefser.put(STATUS_LIST_KEY, statusList);
+        diskCache.put(STATUS_LIST_KEY, statusList);
     }
 
     Observable.Transformer<List<Status>, List<Status>> logSource(final String source) {

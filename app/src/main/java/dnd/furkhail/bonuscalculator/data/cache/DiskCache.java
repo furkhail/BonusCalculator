@@ -11,13 +11,13 @@ import javax.inject.Singleton;
 import dnd.furkhail.bonuscalculator.MyApp;
 import rx.Observable;
 
-public class DiskPrefser {
+public class DiskCache {
 
     private Prefser library;
 
     @Singleton
     @Inject
-    public DiskPrefser() {
+    public DiskCache() {
         library = new Prefser(MyApp.getInstance().getApplicationContext());
     }
 
@@ -25,7 +25,7 @@ public class DiskPrefser {
         library.clear();
     }
 
-    public <T> void put(String key, T data){
+    <T> void put(String key, T data){
         library.put(key,data);
     }
 

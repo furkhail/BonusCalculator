@@ -8,18 +8,22 @@ import javax.inject.Inject;
 
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.interactor.DefaultObserver;
-import dnd.furkhail.bonuscalculator.domain.interactor.GetStatusUseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.status.AddStatusUseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.status.GetStatusListUseCase;
 import dnd.furkhail.bonuscalculator.presentation.view.StatusListView;
 
 public class StatusListPresenter implements Presenter{
 
-    private final GetStatusUseCase getStatusUseCase;
+    private final GetStatusListUseCase getStatusListUseCase;
+    private final AddStatusUseCase addStatusUseCase;
 
     private StatusListView viewListView;
 
     @Inject
-    public StatusListPresenter(GetStatusUseCase getStatusUseCase) {
-        this.getStatusUseCase = getStatusUseCase;
+    public StatusListPresenter(GetStatusListUseCase getStatusListUseCase,
+                               AddStatusUseCase addStatusUseCase) {
+        this.getStatusListUseCase = getStatusListUseCase;
+        this.addStatusUseCase = addStatusUseCase;
     }
 
     public void setView(@NonNull StatusListView view) {
@@ -75,7 +79,12 @@ public class StatusListPresenter implements Presenter{
     }
 
     private void getStatusList() {
-        getStatusUseCase.execute(new StatusListObserver(), null);
+        getStatusListUseCase.execute(new StatusListObserver(), null);
+    }
+
+    public void addStatus(String input){
+        Status status = new Status(input);
+        addStatusUseCase.execute(new StatusListObserver(), status);
     }
 
     private final class StatusListObserver extends DefaultObserver<List<Status>> {
