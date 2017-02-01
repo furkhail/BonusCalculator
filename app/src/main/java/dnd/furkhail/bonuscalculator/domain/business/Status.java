@@ -46,4 +46,14 @@ public class Status {
     public void setBonuses(List<Bonus> bonuses) {
         this.bonuses = bonuses;
     }
+
+    @Override
+    public String toString() {
+        return "Status{" +
+                "name='" + name + '\'' +
+                ", active=" + active +
+                ", duration='" + duration + '\'' +
+                ", bonuses=" + bonuses +
+                '}';
+    }
 }

@@ -1,5 +1,7 @@
 package dnd.furkhail.bonuscalculator.presentation.presenter;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,10 +17,13 @@ public class StatusListPresenter implements Presenter{
 
     private StatusListView viewListView;
 
-
     @Inject
     public StatusListPresenter(GetStatusUseCase getStatusUseCase) {
         this.getStatusUseCase = getStatusUseCase;
+    }
+
+    public void setView(@NonNull StatusListView view) {
+        this.viewListView = view;
     }
 
     @Override
@@ -33,17 +38,17 @@ public class StatusListPresenter implements Presenter{
 
     @Override
     public void destroy() {
-        getStatusUseCase.dispose();
+//        getStatusUseCase.dispose();
     }
 
     public void initialize() {
-        this.loadUserList();
+        this.loadStatusList();
     }
 
     /**
      * Loads all users.
      */
-    private void loadUserList() {
+    private void loadStatusList() {
         hideViewRetry();
         showViewLoading();
         getStatusList();
@@ -75,7 +80,7 @@ public class StatusListPresenter implements Presenter{
 
     private final class StatusListObserver extends DefaultObserver<List<Status>> {
 
-        @Override public void onComplete() {
+        @Override public void onCompleted() {
             hideViewLoading();
         }
 

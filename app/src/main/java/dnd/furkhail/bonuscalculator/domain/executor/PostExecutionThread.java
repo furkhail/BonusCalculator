@@ -1,6 +1,6 @@
 package dnd.furkhail.bonuscalculator.domain.executor;
 
-import io.reactivex.Scheduler;
+import rx.Scheduler;
 
 public interface PostExecutionThread {
     Scheduler getScheduler();

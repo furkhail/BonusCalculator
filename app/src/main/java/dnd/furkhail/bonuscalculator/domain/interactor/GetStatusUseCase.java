@@ -8,7 +8,7 @@ import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
 import dnd.furkhail.bonuscalculator.domain.repository.StatusRepository;
-import io.reactivex.Observable;
+import rx.Observable;
 
 public class GetStatusUseCase extends UseCase<List<Status>, Void>{
 
@@ -22,6 +22,6 @@ public class GetStatusUseCase extends UseCase<List<Status>, Void>{
 
     @Override
     Observable<List<Status>> buildUseCaseObservable(Void aVoid) {
-        return statusRepository.statuses();
+        return statusRepository.getStatusList();
     }
 }

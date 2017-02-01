@@ -3,18 +3,10 @@ package dnd.furkhail.bonuscalculator.data.cache;
 import java.util.List;
 
 import dnd.furkhail.bonuscalculator.domain.business.Status;
-import io.reactivex.Observable;
 
-public interface StatusCache {
+public interface StatusCache extends Cache<List<Status>> {
 
-    Observable<List<Status>> getStatus();
+    void addStatus(Status status);
 
-    void put(Status status);
-
-    boolean isCached(final String name);
-
-    boolean isExpired();
-
-    void evictAll();
-
+    void removeStatus(String name);
 }
