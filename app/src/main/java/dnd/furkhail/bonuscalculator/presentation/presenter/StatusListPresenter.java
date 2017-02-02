@@ -42,7 +42,7 @@ public class StatusListPresenter implements Presenter{
 
     @Override
     public void destroy() {
-//        getStatusUseCase.dispose();
+        getStatusListUseCase.unsubscribe();
     }
 
     public void initialize() {
