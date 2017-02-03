@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dnd.furkhail.bonuscalculator.domain.business.Status;
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class StatusCacheImpl implements StatusCache {
 
@@ -31,8 +31,12 @@ public class StatusCacheImpl implements StatusCache {
 
     @Override
     public Observable<List<Status>> disk() {
-        Observable<List<Status>> observable = diskCache.get(STATUS_LIST_KEY);
-        return observable.doOnNext(data -> statusList = data);
+        ArrayList<Status> list = diskCache.get(STATUS_LIST_KEY);
+        if(list!=null) {
+            Observable<List<Status>> observable = Observable.just(list);
+            return observable.doOnNext(data -> statusList = data);
+        }
+        return Observable.empty();
     }
 
     @Override
@@ -57,16 +61,5 @@ public class StatusCacheImpl implements StatusCache {
             }
         }
         diskCache.put(STATUS_LIST_KEY, statusList);
-    }
-
-    Observable.Transformer<List<Status>, List<Status>> logSource(final String source) {
-        return dataObservable -> dataObservable.doOnNext(data -> {
-            if (data == null) {
-                System.out.println(source + " does not have any data.");
-            }
-            else {
-                System.out.println(source + " has the data you are looking for!");
-            }
-        });
     }
 }

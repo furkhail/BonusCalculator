@@ -10,9 +10,10 @@ import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.interactor.DefaultObserver;
 import dnd.furkhail.bonuscalculator.domain.interactor.status.AddStatusUseCase;
 import dnd.furkhail.bonuscalculator.domain.interactor.status.GetStatusListUseCase;
+import dnd.furkhail.bonuscalculator.presentation.base.Presenter;
 import dnd.furkhail.bonuscalculator.presentation.view.StatusListView;
 
-public class StatusListPresenter implements Presenter{
+public class StatusListPresenter implements Presenter {
 
     private final GetStatusListUseCase getStatusListUseCase;
     private final AddStatusUseCase addStatusUseCase;
@@ -21,7 +22,7 @@ public class StatusListPresenter implements Presenter{
 
     @Inject
     public StatusListPresenter(GetStatusListUseCase getStatusListUseCase,
-                               AddStatusUseCase addStatusUseCase) {
+                        AddStatusUseCase addStatusUseCase) {
         this.getStatusListUseCase = getStatusListUseCase;
         this.addStatusUseCase = addStatusUseCase;
     }
@@ -32,7 +33,7 @@ public class StatusListPresenter implements Presenter{
 
     @Override
     public void resume() {
-
+        viewListView.showAddStatusDialog();
     }
 
     @Override
@@ -42,16 +43,14 @@ public class StatusListPresenter implements Presenter{
 
     @Override
     public void destroy() {
-        getStatusListUseCase.unsubscribe();
+        viewListView = null;
+        getStatusListUseCase.dispose();
     }
 
     public void initialize() {
         this.loadStatusList();
     }
 
-    /**
-     * Loads all users.
-     */
     private void loadStatusList() {
         hideViewRetry();
         showViewLoading();
@@ -89,7 +88,7 @@ public class StatusListPresenter implements Presenter{
 
     private final class StatusListObserver extends DefaultObserver<List<Status>> {
 
-        @Override public void onCompleted() {
+        @Override public void onComplete() {
             hideViewLoading();
         }
 

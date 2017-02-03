@@ -3,7 +3,7 @@ package dnd.furkhail.bonuscalculator.data.cache;
 import java.util.List;
 
 import dnd.furkhail.bonuscalculator.domain.business.Status;
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface StatusCache extends Cache<List<Status>> {
 

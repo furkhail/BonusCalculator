@@ -1,20 +1,18 @@
 package dnd.furkhail.bonuscalculator.domain.interactor;
 
-import rx.Observer;
 
-public class DefaultObserver<T> implements Observer<T> {
-    @Override
-    public void onNext(T value) {
+import io.reactivex.observers.DisposableObserver;
 
+public class DefaultObserver<T> extends DisposableObserver<T> {
+    @Override public void onNext(T t) {
+        // no-op by default.
     }
 
-    @Override
-    public void onCompleted() {
-
+    @Override public void onComplete() {
+        // no-op by default.
     }
 
-    @Override
-    public void onError(Throwable e) {
-
+    @Override public void onError(Throwable exception) {
+        // no-op by default.
     }
 }

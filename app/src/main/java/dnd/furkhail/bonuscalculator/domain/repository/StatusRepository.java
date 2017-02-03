@@ -3,7 +3,7 @@ package dnd.furkhail.bonuscalculator.domain.repository;
 import java.util.List;
 
 import dnd.furkhail.bonuscalculator.domain.business.Status;
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface StatusRepository {
 

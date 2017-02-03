@@ -2,11 +2,10 @@ package dnd.furkhail.bonuscalculator.presentation.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -14,9 +13,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dnd.furkhail.bonuscalculator.MyApp;
 import dnd.furkhail.bonuscalculator.R;
+import dnd.furkhail.bonuscalculator.dagger.components.ApplicationComponent;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
+import dnd.furkhail.bonuscalculator.presentation.base.BaseFragment;
 import dnd.furkhail.bonuscalculator.presentation.presenter.StatusListPresenter;
 import dnd.furkhail.bonuscalculator.presentation.view.StatusListView;
 
@@ -33,16 +36,45 @@ public class MainFragment extends BaseFragment implements StatusListView {
     public MainFragment() {
     }
 
+    public static MainFragment newInstance() {
+        Bundle args = new Bundle();
+
+        MainFragment fragment = new MainFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        injectComponent(MyApp.get(getActivity()).getApplicationComponent());
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_main;
+    }
+
+    @Override
+    protected void injectComponent(ApplicationComponent component) {
+        Log.d(TAG, "injectComponent() called with: component = [" + component + "]");
+        component.inject(this);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+        presenter.setView(this);
+        if (savedInstanceState == null) {
+            presenter.initialize();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        presenter.initialize();
+        presenter.resume();
     }
 
     @Override

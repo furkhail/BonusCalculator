@@ -4,13 +4,14 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import dnd.furkhail.bonuscalculator.dagger.modules.ApplicationModule;
-import dnd.furkhail.bonuscalculator.presentation.view.activity.BaseActivity;
+import dnd.furkhail.bonuscalculator.dagger.modules.ProjectModule;
+import dnd.furkhail.bonuscalculator.presentation.view.activity.MainActivity;
 import dnd.furkhail.bonuscalculator.presentation.view.fragment.MainFragment;
 
 @Singleton
-@Component(modules = ApplicationModule.class)
+@Component(modules = {ApplicationModule.class, ProjectModule.class})
 public interface ApplicationComponent {
-    void inject(BaseActivity baseActivity);
+    void inject(MainActivity baseActivity);
 
-    void inject(MainFragment mainFragment);
+    void inject(MainFragment baseFragment);
 }

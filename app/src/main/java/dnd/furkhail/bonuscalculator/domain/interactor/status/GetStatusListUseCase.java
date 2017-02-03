@@ -9,7 +9,7 @@ import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
 import dnd.furkhail.bonuscalculator.domain.interactor.UseCase;
 import dnd.furkhail.bonuscalculator.domain.repository.StatusRepository;
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class GetStatusListUseCase extends UseCase<List<Status>, Void> {
 

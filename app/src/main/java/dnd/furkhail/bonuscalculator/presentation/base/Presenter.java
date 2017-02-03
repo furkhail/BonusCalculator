@@ -1,4 +1,4 @@
-package dnd.furkhail.bonuscalculator.presentation.presenter;
+package dnd.furkhail.bonuscalculator.presentation.base;
 
 public interface Presenter {
     /**

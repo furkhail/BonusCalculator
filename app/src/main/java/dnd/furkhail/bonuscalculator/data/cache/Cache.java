@@ -1,7 +1,7 @@
 package dnd.furkhail.bonuscalculator.data.cache;
 
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface Cache<T> {
 

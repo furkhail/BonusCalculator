@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import dnd.furkhail.bonuscalculator.data.cache.StatusCache;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.repository.StatusRepository;
-import rx.Observable;
+import io.reactivex.Observable;
 
 @Singleton
 public class StatusDataRepository implements StatusRepository {
@@ -33,6 +33,6 @@ public class StatusDataRepository implements StatusRepository {
     @Override
     public Observable<List<Status>> getStatusList() {
         return Observable.concat(statusCache.memory(), statusCache.disk(), statusCache.network())
-                .takeFirst(data -> data != null);
+                .filter(data -> data != null);
     }
 }

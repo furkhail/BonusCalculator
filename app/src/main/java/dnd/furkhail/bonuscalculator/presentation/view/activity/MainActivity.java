@@ -5,7 +5,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import dnd.furkhail.bonuscalculator.MyApp;
 import dnd.furkhail.bonuscalculator.R;
+import dnd.furkhail.bonuscalculator.presentation.base.BaseActivity;
+import dnd.furkhail.bonuscalculator.presentation.view.fragment.MainFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -13,13 +18,36 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.initializeInjector();
+        if (savedInstanceState == null) {
+            addFragment(R.id.fragment_container, new MainFragment());
+        }
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(view ->
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show());
+    }
+
+    private void initializeInjector() {
+        ((MyApp) getApplication()).getApplicationComponent().inject(this);
+
+    }
+
+//    private void initializeInjector() {
+//        this.applicationComponent = DaggerApplicationComponent.builder()
+//                .applicationComponent(getApplicationComponent())
+//                .activityModule(getActivityModule())
+//                .build();
+//    }
+
+
+    @OnClick(R.id.fab)
+    public void pressFab(){
+
     }
 
     @Override

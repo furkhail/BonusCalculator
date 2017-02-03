@@ -6,19 +6,16 @@ import com.github.pwittchen.prefser.library.TypeToken;
 import java.lang.reflect.Type;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import dnd.furkhail.bonuscalculator.MyApp;
-import rx.Observable;
 
 public class DiskCache {
 
     private Prefser library;
 
-    @Singleton
     @Inject
     public DiskCache() {
-        library = new Prefser(MyApp.getInstance().getApplicationContext());
+        library = new Prefser(MyApp.getContext());
     }
 
     public void clear(){
@@ -29,12 +26,21 @@ public class DiskCache {
         library.put(key,data);
     }
 
-    public <T> Observable<T> get(String key){
-        return library.getAndObserve(key, new TypeToken<T>() {
+    public <T> T get(String key){
+        return library.get(key, new TypeToken<T>() {
             @Override
             public Type getType() {
                 return super.getType();
             }
         }, null);
     }
+
+//    public <T> Observable<T> get(String key){
+//        return library.getAndObserve(key, new TypeToken<T>() {
+//            @Override
+//            public Type getType() {
+//                return super.getType();
+//            }
+//        }, null);
+//    }
 }

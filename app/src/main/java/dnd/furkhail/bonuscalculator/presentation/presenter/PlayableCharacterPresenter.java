@@ -1,5 +1,7 @@
 package dnd.furkhail.bonuscalculator.presentation.presenter;
 
+import dnd.furkhail.bonuscalculator.presentation.base.Presenter;
+
 public class PlayableCharacterPresenter implements Presenter {
 
     @Override

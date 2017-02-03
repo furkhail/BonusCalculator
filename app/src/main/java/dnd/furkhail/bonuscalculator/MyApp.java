@@ -1,33 +1,39 @@
 package dnd.furkhail.bonuscalculator;
 
 import android.app.Application;
+import android.content.Context;
 
 import dnd.furkhail.bonuscalculator.dagger.components.ApplicationComponent;
 import dnd.furkhail.bonuscalculator.dagger.components.DaggerApplicationComponent;
+import dnd.furkhail.bonuscalculator.dagger.modules.ApplicationModule;
 
 public class MyApp extends Application {
 
+    private ApplicationComponent applicationComponent;
     private static MyApp instance;
 
-    private ApplicationComponent applicationComponent;
-
-    public static MyApp getInstance() {
-        return instance;
-    }
-
-    public static void setInstance(MyApp instance) {
-        MyApp.instance = instance;
+    public static MyApp get(Context context) {
+        return (MyApp) context.getApplicationContext();
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        setInstance(this);
+        this.initializeInjector();
+        instance = this;
+    }
 
-        applicationComponent = DaggerApplicationComponent.create();
+    public void initializeInjector() {
+        this.applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
     }
 
     public ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
+        return this.applicationComponent;
+    }
+
+    public static MyApp getContext(){
+        return instance;
     }
 }
