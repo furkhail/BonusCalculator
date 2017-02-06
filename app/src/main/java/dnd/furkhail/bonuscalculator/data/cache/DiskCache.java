@@ -22,17 +22,21 @@ public class DiskCache {
         library.clear();
     }
 
-    <T> void put(String key, T data){
+    public <T> void put(String key, T data){
         library.put(key,data);
     }
 
     public <T> T get(String key){
-        return library.get(key, new TypeToken<T>() {
+        return get(ket, new TypeToken<T>() {
             @Override
             public Type getType() {
                 return super.getType();
             }
-        }, null);
+        });
+    }
+
+    public <T> T get(String key, TypeToken<T> typeToken){
+        return library.get(key, typeToken, null);
     }
 
 //    public <T> Observable<T> get(String key){

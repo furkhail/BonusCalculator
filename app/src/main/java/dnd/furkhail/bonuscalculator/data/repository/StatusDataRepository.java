@@ -5,7 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import dnd.furkhail.bonuscalculator.data.cache.StatusCache;
+import dnd.furkhail.bonuscalculator.data.cache.status.StatusCache;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.repository.StatusRepository;
 import io.reactivex.Observable;
@@ -26,8 +26,8 @@ public class StatusDataRepository implements StatusRepository {
     }
 
     @Override
-    public void removeStatus(String name) {
-
+    public boolean removeStatus(String name) {
+        return statusCache.removeStatus(name);
     }
 
     @Override

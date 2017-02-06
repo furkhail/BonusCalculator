@@ -8,5 +8,7 @@
     <string name="intelligence">Inteligencia</string>
     <string name="wisdom">Sabiduría</string>
     <string name="charisma">Carisma</string>
+    <string name="pc_name">Nombre</string>
+    <string name="default_ability_score">10</string>
 
 </resources>

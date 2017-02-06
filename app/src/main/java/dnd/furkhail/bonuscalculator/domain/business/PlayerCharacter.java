@@ -1,8 +1,13 @@
 package dnd.furkhail.bonuscalculator.domain.business;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class PlayableCharacter {
+public class PlayerCharacter {
+
+    private static final String TAG = "PlayerCharacter";
 
     private String name;
     private String size;
@@ -12,7 +17,7 @@ public class PlayableCharacter {
     private List<Stat> stats;
     private List<Status> statuses;
 
-    public PlayableCharacter(String name, String size, String race, List<Ability> abilities, List<Attack> attacks, List<Stat> stats, List<Status> statuses) {
+    public PlayerCharacter(String name, String size, String race, List<Ability> abilities, List<Attack> attacks, List<Stat> stats, List<Status> statuses) {
         this.name = name;
         this.size = size;
         this.race = race;
@@ -21,6 +26,12 @@ public class PlayableCharacter {
         this.stats = stats;
         this.statuses = statuses;
     }
+
+    public PlayerCharacter(){
+        this("","","",initAbilitiesPathfinder(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    }
+
+
 
     public String getName() {
         return name;
@@ -46,8 +57,8 @@ public class PlayableCharacter {
         this.race = race;
     }
 
-    public List<Ability> getAbilities() {
-        return abilities;
+    public ArrayList<Ability> getAbilities() {
+        return (ArrayList<Ability>) abilities;
     }
 
     public void setAbilities(List<Ability> abilities) {
@@ -76,5 +87,25 @@ public class PlayableCharacter {
 
     public void setStatuses(List<Status> statuses) {
         this.statuses = statuses;
+    }
+
+    private static List<Ability> initAbilitiesPathfinder(){
+        List<Ability> list = new ArrayList<>();
+        list.add(new Ability(NameFieldPathfinder.ABILITY_NAME_STRENGHT, 10));
+        list.add(new Ability(NameFieldPathfinder.ABILITY_NAME_DEXTERITY, 10));
+        list.add(new Ability(NameFieldPathfinder.ABILITY_NAME_CONSTITUTION, 10));
+        list.add(new Ability(NameFieldPathfinder.ABILITY_NAME_INTELLIGENCE, 10));
+        list.add(new Ability(NameFieldPathfinder.ABILITY_NAME_WISDOM, 10));
+        list.add(new Ability(NameFieldPathfinder.ABILITY_NAME_CHARISMA, 10));
+        Log.d(TAG, "initAbilitiesPathfinder() called: "+list);
+        return list;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerCharacter{" +
+                "name='" + name + '\'' +
+                ", abilities=" + abilities +
+                '}';
     }
 }

@@ -17,4 +17,14 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AbilityLabel" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="AbilityLabel.AbilityScore" parent="AbilityLabel">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
 </resources>

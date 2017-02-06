@@ -1,8 +1,9 @@
-package dnd.furkhail.bonuscalculator.data.cache;
+package dnd.furkhail.bonuscalculator.data.cache.status;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dnd.furkhail.bonuscalculator.data.cache.DiskCache;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import io.reactivex.Observable;
 
@@ -54,12 +55,15 @@ public class StatusCacheImpl implements StatusCache {
     }
 
     @Override
-    public void removeStatus(String name) {
+    public boolean removeStatus(String name) {
+        boolean deleted = false;
         for(Status s: statusList){
             if(name.equals(s.getName())){
                 statusList.remove(s);
+                deleted = true;
             }
         }
         diskCache.put(STATUS_LIST_KEY, statusList);
+        return deleted;
     }
 }

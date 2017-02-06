@@ -1,6 +1,6 @@
 package dnd.furkhail.bonuscalculator.presentation.base;
 
-public interface Presenter {
+public interface Presenter<T> {
     /**
      * Method that control the lifecycle of the view. It should be called in the view's
      * (Activity or Fragment) onResume() method.
@@ -18,4 +18,8 @@ public interface Presenter {
      * (Activity or Fragment) onDestroy() method.
      */
     void destroy();
+
+    void setView(T view);
+
+    void initialize();
 }

@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="dnd.furkhail.bonuscalculator.presentation.view.fragment.MainFragment"
+    tools:context="dnd.furkhail.bonuscalculator.presentation.view.playerCharacter.PlayerCharacterFragment"
     tools:showIn="@layout/activity_main"
     android:fillViewport="true">
 
@@ -17,10 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="Nombre"
+            android:text="@string/pc_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nameLbl"
+            android:id="@+id/name_lbl"
             android:gravity="center_horizontal" />
 
         <LinearLayout
@@ -28,88 +28,123 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameLbl">
+            android:layout_below="@id/name_lbl">
 
             <TextView
                 android:text="@string/strenght"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/strenghtLbl" />
+                android:id="@+id/strengthLbl"
+                style="@style/AbilityLabel"
+                />
 
             <TextView
                 android:text="@string/dexterity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/dexterityLbl" />
+                android:id="@+id/dexterityLbl"
+                style="@style/AbilityLabel"
+                />
 
             <TextView
                 android:text="@string/constitution"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/constitutionLbl" />
+                android:id="@+id/constitutionLbl"
+                style="@style/AbilityLabel"
+                />
 
             <TextView
                 android:text="@string/intelligence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/intelligenceLbl" />
+                android:id="@+id/intelligenceLbl"
+                style="@style/AbilityLabel"
+                />
 
             <TextView
                 android:text="@string/wisdom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/wisdomLbl" />
+                android:id="@+id/wisdomLbl"
+                style="@style/AbilityLabel"
+                />
 
             <TextView
                 android:text="@string/charisma"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/charismaLbl" />
+                android:id="@+id/charismaLbl"
+                style="@style/AbilityLabel"
+                />
 
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameLbl"
-            android:layout_toRightOf="@id/abilitiesLbls">
+            android:layout_below="@id/name_lbl"
+            android:layout_toRightOf="@id/abilitiesLbls"
+            >
 
             <TextView
-                android:text="@string/strenght"
+                android:text="@string/default_ability_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/strenghtNumLbl" />
+                android:id="@+id/strengthScoreLbl"
+                style="@style/AbilityLabel.AbilityScore"
+                />
 
             <TextView
-                android:text="@string/dexterity"
+                android:text="@string/default_ability_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/dexterityNumLbl" />
+                android:id="@+id/dexterityScoreLbl"
+                style="@style/AbilityLabel.AbilityScore"
+                />
 
             <TextView
-                android:text="@string/constitution"
+                android:text="@string/default_ability_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/constitutionNumLbl" />
+                android:id="@+id/constitutionScoreLbl"
+                style="@style/AbilityLabel.AbilityScore"
+                />
 
             <TextView
-                android:text="@string/intelligence"
+                android:text="@string/default_ability_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/intelligenceNumLbl" />
+                android:id="@+id/intelligenceScoreLbl"
+                style="@style/AbilityLabel.AbilityScore"
+                />
 
             <TextView
-                android:text="@string/wisdom"
+                android:text="@string/default_ability_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/wisdomNumLbl" />
+                android:id="@+id/wisdomScoreLbl"
+                style="@style/AbilityLabel.AbilityScore"
+                />
 
             <TextView
-                android:text="@string/charisma"
+                android:text="@string/default_ability_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/charismaNumLbl" />
+                android:id="@+id/charismaScoreLbl"
+                style="@style/AbilityLabel.AbilityScore"
+                />
 
         </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_input_add"
+            android:background="@drawable/ripple"
+            />
     </RelativeLayout>
 </ScrollView>

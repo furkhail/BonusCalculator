@@ -9,7 +9,7 @@ public interface StatusRepository {
 
     Observable<List<Status>> addStatus(Status status);
 
-    void removeStatus(String name);
+    boolean removeStatus(String name);
 
     Observable<List<Status>> getStatusList();
 }
