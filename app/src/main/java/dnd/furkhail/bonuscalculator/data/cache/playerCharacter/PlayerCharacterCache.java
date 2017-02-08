@@ -6,5 +6,5 @@ import io.reactivex.Observable;
 
 public interface PlayerCharacterCache extends Cache<PlayerCharacter> {
 
-    Observable<PlayerCharacter> updatePlayerCharacter(PlayerCharacter playerCharacter);
+    Observable<PlayerCharacter> write(PlayerCharacter playerCharacter);
 }

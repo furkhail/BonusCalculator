@@ -1,6 +1,5 @@
 package dnd.furkhail.bonuscalculator.data.cache;
 
-
 import io.reactivex.Observable;
 
 public interface Cache<T> {
@@ -12,4 +11,5 @@ public interface Cache<T> {
     Observable<T> disk();
 
     Observable<T> network();
+
 }

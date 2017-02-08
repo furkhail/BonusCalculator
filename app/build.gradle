@@ -28,9 +28,6 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
 }
 
 dependencies {
@@ -53,12 +50,12 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
 
     compile 'com.github.pwittchen:prefser:2.0.6'
-    compile ('com.afollestad.material-dialogs:core:0.9.2.3'){
-        transitive = true
-    }
+    compile 'com.afollestad.material-dialogs:core:0.9.2.3'
 
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     testCompile 'junit:junit:4.12'
 }

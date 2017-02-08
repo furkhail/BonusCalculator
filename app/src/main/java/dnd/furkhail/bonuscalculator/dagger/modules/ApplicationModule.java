@@ -11,7 +11,7 @@ import dagger.Provides;
 import dnd.furkhail.bonuscalculator.data.executor.JobExecutor;
 import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
-import dnd.furkhail.bonuscalculator.presentation.UIThread;
+import dnd.furkhail.bonuscalculator.presentation.UiThread;
 
 @Module
 public class ApplicationModule {
@@ -47,7 +47,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    PostExecutionThread providePostExecutionThread(UIThread uiThread) {
+    PostExecutionThread providePostExecutionThread(UiThread uiThread) {
         return uiThread;
     }
 

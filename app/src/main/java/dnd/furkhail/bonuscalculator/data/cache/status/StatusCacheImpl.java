@@ -1,5 +1,8 @@
 package dnd.furkhail.bonuscalculator.data.cache.status;
 
+import com.github.pwittchen.prefser.library.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +35,12 @@ public class StatusCacheImpl implements StatusCache {
 
     @Override
     public Observable<List<Status>> disk() {
-        ArrayList<Status> list = diskCache.get(STATUS_LIST_KEY);
+        ArrayList<Status> list = diskCache.get(STATUS_LIST_KEY, new TypeToken<ArrayList<Status>>() {
+            @Override
+            public Type getType() {
+                return super.getType();
+            }
+        });
         if(list!=null) {
             Observable<List<Status>> observable = Observable.just(list);
             return observable.doOnNext(data -> statusList = data);

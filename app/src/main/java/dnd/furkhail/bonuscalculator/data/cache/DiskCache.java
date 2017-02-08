@@ -3,8 +3,6 @@ package dnd.furkhail.bonuscalculator.data.cache;
 import com.github.pwittchen.prefser.library.Prefser;
 import com.github.pwittchen.prefser.library.TypeToken;
 
-import java.lang.reflect.Type;
-
 import javax.inject.Inject;
 
 import dnd.furkhail.bonuscalculator.MyApp;
@@ -26,13 +24,8 @@ public class DiskCache {
         library.put(key,data);
     }
 
-    public <T> T get(String key){
-        return get(ket, new TypeToken<T>() {
-            @Override
-            public Type getType() {
-                return super.getType();
-            }
-        });
+    public <T> T get(String key, Class<T> classOf){
+        return library.get(key, classOf, null);
     }
 
     public <T> T get(String key, TypeToken<T> typeToken){

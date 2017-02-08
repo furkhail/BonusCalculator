@@ -8,10 +8,10 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 @Singleton
-public class UIThread implements PostExecutionThread {
+public class UiThread implements PostExecutionThread {
 
     @Inject
-    public UIThread() {}
+    public UiThread() {}
 
     @Override
     public Scheduler getScheduler() {

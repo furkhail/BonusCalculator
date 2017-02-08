@@ -1,5 +1,7 @@
 package dnd.furkhail.bonuscalculator.data.repository;
 
+import android.util.Log;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -11,6 +13,8 @@ import io.reactivex.functions.Predicate;
 
 @Singleton
 public class PlayerCharacterDataRepository implements PlayerCharacterRepository {
+
+    private static final String TAG = "PlayerCharacterDataRepo";
 
     private PlayerCharacterCache mPlayerCharacterCache;
 
@@ -28,6 +32,7 @@ public class PlayerCharacterDataRepository implements PlayerCharacterRepository 
                 .filter(new Predicate<PlayerCharacter>() {
                     @Override
                     public boolean test(PlayerCharacter playerCharacter) throws Exception {
+                        Log.d(TAG, "test() called with: playerCharacter = [" + playerCharacter + "]");
                         return playerCharacter != null;
                     }
                 });
@@ -36,6 +41,6 @@ public class PlayerCharacterDataRepository implements PlayerCharacterRepository 
 
     @Override
     public Observable<PlayerCharacter> updatePlayerCharacter(PlayerCharacter playerCharacter) {
-        return mPlayerCharacterCache.updatePlayerCharacter(playerCharacter);
+        return mPlayerCharacterCache.write(playerCharacter);
     }
 }

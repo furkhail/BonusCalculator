@@ -14,6 +14,7 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
 
     private PlayerCharacter mPlayerCharacter;
 
+
     private DiskCache diskCache;
 
     public PlayerCharacterCacheImpl(DiskCache diskCache) {
@@ -35,8 +36,8 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
 
     @Override
     public Observable<PlayerCharacter> disk() {
-        PlayerCharacter playerCharacter = diskCache.get(PLAYER_CHARACTER_KEY);
-        if(playerCharacter!=null) {
+        PlayerCharacter playerCharacter = diskCache.get(PLAYER_CHARACTER_KEY, PlayerCharacter.class);
+        if (playerCharacter != null) {
             Observable<PlayerCharacter> observable = Observable.just(playerCharacter);
             return observable.doOnNext(data -> mPlayerCharacter = data);
         }
@@ -49,8 +50,8 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
     }
 
     @Override
-    public Observable<PlayerCharacter> updatePlayerCharacter(PlayerCharacter playerCharacter) {
-        if(playerCharacter!=null){
+    public Observable<PlayerCharacter> write(PlayerCharacter playerCharacter) {
+        if (playerCharacter != null) {
             mPlayerCharacter = playerCharacter;
             diskCache.put(PLAYER_CHARACTER_KEY, playerCharacter);
         }
