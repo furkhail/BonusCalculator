@@ -1,4 +1,4 @@
-package dnd.furkhail.bonuscalculator.domain.interactor.playerCharacter;
+package dnd.furkhail.bonuscalculator.domain.interactor.playercharacter;
 
 import javax.inject.Inject;
 

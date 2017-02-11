@@ -8,9 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="dnd.furkhail.bonuscalculator.presentation.view.playerCharacter.PlayerCharacterFragment"
+    tools:context="dnd.furkhail.bonuscalculator.presentation.view.playercharacter.PlayerCharacterFragment"
     android:fillViewport="true">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,13 +19,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/name_lbl"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            style="@style/TextClickable"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/name_lbl"
             android:id="@+id/ability_scores_recycler"
+            android:layout_marginBottom="10dp"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ability_scores_recycler"
+            android:id="@+id/pc_stats_recycler"
             />
 
         <android.support.design.widget.FloatingActionButton

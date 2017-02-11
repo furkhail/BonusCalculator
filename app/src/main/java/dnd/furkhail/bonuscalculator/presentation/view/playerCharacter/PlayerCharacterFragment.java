@@ -1,15 +1,18 @@
-package dnd.furkhail.bonuscalculator.presentation.view.playerCharacter;
+package dnd.furkhail.bonuscalculator.presentation.view.playercharacter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -17,13 +20,16 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dnd.furkhail.bonuscalculator.MyApp;
 import dnd.furkhail.bonuscalculator.R;
 import dnd.furkhail.bonuscalculator.dagger.components.ApplicationComponent;
 import dnd.furkhail.bonuscalculator.domain.business.Ability;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
+import dnd.furkhail.bonuscalculator.domain.business.Stat;
 import dnd.furkhail.bonuscalculator.presentation.base.BaseFragment;
 import dnd.furkhail.bonuscalculator.presentation.view.adapter.AbilityAdapter;
+import dnd.furkhail.bonuscalculator.presentation.view.adapter.StatAdapter;
 
 public class PlayerCharacterFragment extends BaseFragment implements PlayerCharacterView {
 
@@ -32,6 +38,13 @@ public class PlayerCharacterFragment extends BaseFragment implements PlayerChara
     @BindView(R.id.ability_scores_recycler)
     RecyclerView mAbilityScoresRecycler;
     AbilityAdapter mAbilityAdapter;
+
+    @BindView(R.id.pc_stats_recycler)
+    RecyclerView mStatScoresRecycler;
+    StatAdapter mStatAdapter;
+
+    @BindView(R.id.name_lbl)
+    TextView mNameTextView;
 
     @Inject
     PlayerCharacterPresenter mPresenter;
@@ -63,6 +76,7 @@ public class PlayerCharacterFragment extends BaseFragment implements PlayerChara
             ButterKnife.bind(this, view);
             Log.i(TAG, "onCreateView: new layoutmanager");
             mAbilityScoresRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+            mStatScoresRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         }
         return view;
     }
@@ -82,37 +96,53 @@ public class PlayerCharacterFragment extends BaseFragment implements PlayerChara
         super.onViewCreated(view, savedInstanceState);
         mPresenter.setView(this);
         if (savedInstanceState == null) {
-            Log.i(TAG, "onViewCreated: no saveinstanceState");
+//            Log.i(TAG, "onViewCreated: no saveinstanceState");
             mPresenter.initialize();
         }
     }
 
     @Override
-    public void renderPlayerCharacter(PlayerCharacter playerCharacter) {
-        Log.d(TAG, "renderPlayerCharacter() called with: playerCharacter = [" + playerCharacter + "]");
+    public void renderPlayerCharacter(@NonNull PlayerCharacter playerCharacter) {
         mPlayerCharacter = playerCharacter;
-        if (mAbilityAdapter == null) {
-            Log.i(TAG, "renderPlayerCharacter: new abilityadapter");
-            mAbilityAdapter = new AbilityAdapter(mPlayerCharacter.getAbilities());
-            mAbilityScoresRecycler.setAdapter(mAbilityAdapter);
-        } else {
-            Log.i(TAG, "renderPlayerCharacter: old abilityadapter");
-            mAbilityAdapter.setAbilities(mPlayerCharacter.getAbilities());
-        }
-        mAbilityAdapter.getPositionClicks().doOnNext(ability -> {
-            Log.d(TAG, "accept() called with: ability = [" + ability + "]");
-            showChangeAbilityDialog(ability);
-        }).forEach(ability -> Log.d(TAG, "accept() called with: ability = [" + ability + "]"));
+        setNamePlayerCharacter();
+        setAbilityAdapter();
+        setStatAdapter();
     }
 
-    @Override
-    public void showChangeAbilityDialog(Ability ability) {
+    private void setStatAdapter() {
+        if (mStatAdapter == null) {
+            mStatAdapter = new StatAdapter(mPlayerCharacter.getStats());
+            mStatScoresRecycler.setAdapter(mStatAdapter);
+            mStatAdapter.getPositionClicks()
+                    .subscribe(this::showStatAmountDialog, Throwable::printStackTrace);
+        } else {
+            mStatAdapter.setScores(mPlayerCharacter.getStats());
+        }
+    }
+
+    private void setAbilityAdapter() {
+        if (mAbilityAdapter == null) {
+            mAbilityAdapter = new AbilityAdapter(mPlayerCharacter.getAbilities());
+            mAbilityScoresRecycler.setAdapter(mAbilityAdapter);
+            mAbilityAdapter.getPositionClicks()
+                    .subscribe(this::showChangeAbilityDialog, Throwable::printStackTrace);
+        } else {
+            mAbilityAdapter.setScores(mPlayerCharacter.getAbilities());
+        }
+    }
+
+    private void setNamePlayerCharacter(){
+        mNameTextView.setText(mPlayerCharacter.getName());
+    }
+
+    private void showChangeAbilityDialog(Ability ability) {
         Log.i(TAG, "showChangeAbilityDialog: ");
         if(mPlayerCharacter.getAbilities().contains(ability)) {
             new MaterialDialog.Builder(getContext())
                     .title(ability.getName())
                     .autoDismiss(false)
                     .cancelable(true)
+                    .inputType(InputType.TYPE_CLASS_NUMBER)
                     .input("actualiza la " + ability.getName(), ability.getAmount() + "", false, (dialog, input) -> {
                         if(TextUtils.isDigitsOnly(input)){
                             mPlayerCharacter.getAbilities()
@@ -121,12 +151,74 @@ public class PlayerCharacterFragment extends BaseFragment implements PlayerChara
                             mPresenter.reloadPlayerCharacter(mPlayerCharacter);
                             dialog.dismiss();
                         }
-                        else{
-                            Log.i(TAG, "onInput: not number");
-                        }
                     }).show();
         }
     }
+
+    private void showNewStatDialog() {
+        new MaterialDialog.Builder(getContext())
+                .title("Nuevo stat")
+                .autoDismiss(false)
+                .cancelable(true)
+                .input(getString(R.string.pc_name), "", false, (dialog, input) -> {
+                    if(input.length()>0){
+                        boolean exists = false;
+                        for(Stat s: mPlayerCharacter.getStats()) {
+                            if(input.toString().equals(s.getName())) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if(!exists){
+                            Stat stat = new Stat(input.toString(), 0);
+                            mPlayerCharacter.getStats().add(stat);
+                            showStatAmountDialog(stat);
+                            mPresenter.reloadPlayerCharacter(mPlayerCharacter);
+                            dialog.dismiss();
+                        }
+                    }
+                }).show();
+    }
+
+    private void showStatAmountDialog(Stat stat){
+        new MaterialDialog.Builder(getContext())
+                .title(stat.getName())
+                .autoDismiss(false)
+                .cancelable(true)
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input("cambia la cifra", stat.getAmount()+"", false, (dialog, input) -> {
+                    if(TextUtils.isDigitsOnly(input)){
+                        mPlayerCharacter.getStats()
+                                .get(mPlayerCharacter.getStats().indexOf(stat))
+                                .setAmount(Integer.parseInt(input.toString()));
+                        mPresenter.reloadPlayerCharacter(mPlayerCharacter);
+                        dialog.dismiss();
+                    }
+                }).show();
+    }
+
+
+    @OnClick(R.id.name_lbl)
+    public void clickNameLbl(){
+        new MaterialDialog.Builder(getContext())
+                .title(R.string.pc_name)
+                .cancelable(true)
+                .autoDismiss(false)
+                .input(getString(R.string.pc_name), mPlayerCharacter.getName(), false, (dialog, input) -> {
+                    if (input.length() > 0) {
+                        mPlayerCharacter.setName(input.toString());
+                        mPresenter.reloadPlayerCharacter(mPlayerCharacter);
+                        dialog.dismiss();
+                    }
+                }).show();
+    }
+
+    @OnClick(R.id.fab)
+    public void clickFab(){
+        showNewStatDialog();
+    }
+
+
 
     @Override
     public void showLoading() {

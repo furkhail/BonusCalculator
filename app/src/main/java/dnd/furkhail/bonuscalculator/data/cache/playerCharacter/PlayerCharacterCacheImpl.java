@@ -1,4 +1,4 @@
-package dnd.furkhail.bonuscalculator.data.cache.playerCharacter;
+package dnd.furkhail.bonuscalculator.data.cache.playercharacter;
 
 import android.util.Log;
 
@@ -13,7 +13,6 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
     private static final String PLAYER_CHARACTER_KEY = "player_character_key";
 
     private PlayerCharacter mPlayerCharacter;
-
 
     private DiskCache diskCache;
 
@@ -36,7 +35,7 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
 
     @Override
     public Observable<PlayerCharacter> disk() {
-        PlayerCharacter playerCharacter = diskCache.get(PLAYER_CHARACTER_KEY, PlayerCharacter.class);
+        PlayerCharacter playerCharacter = diskCache.get(PLAYER_CHARACTER_KEY, PlayerCharacter.class, null);
         if (playerCharacter != null) {
             Observable<PlayerCharacter> observable = Observable.just(playerCharacter);
             return observable.doOnNext(data -> mPlayerCharacter = data);

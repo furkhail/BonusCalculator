@@ -1,4 +1,4 @@
-package dnd.furkhail.bonuscalculator.data.cache.playerCharacter;
+package dnd.furkhail.bonuscalculator.data.cache.playercharacter;
 
 import dnd.furkhail.bonuscalculator.data.cache.Cache;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;

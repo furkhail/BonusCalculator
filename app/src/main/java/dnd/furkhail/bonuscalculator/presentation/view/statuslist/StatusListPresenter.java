@@ -1,4 +1,4 @@
-package dnd.furkhail.bonuscalculator.presentation.presenter;
+package dnd.furkhail.bonuscalculator.presentation.view.statuslist;
 
 import android.support.annotation.NonNull;
 
@@ -11,7 +11,6 @@ import dnd.furkhail.bonuscalculator.domain.interactor.DefaultObserver;
 import dnd.furkhail.bonuscalculator.domain.interactor.status.AddStatusUseCase;
 import dnd.furkhail.bonuscalculator.domain.interactor.status.GetStatusListUseCase;
 import dnd.furkhail.bonuscalculator.presentation.base.Presenter;
-import dnd.furkhail.bonuscalculator.presentation.view.StatusListView;
 
 class StatusListPresenter implements Presenter<StatusListView> {
 

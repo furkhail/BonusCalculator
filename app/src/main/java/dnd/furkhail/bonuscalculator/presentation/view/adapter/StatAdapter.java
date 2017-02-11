@@ -4,24 +4,24 @@ import android.util.Log;
 
 import java.util.List;
 
-import dnd.furkhail.bonuscalculator.domain.business.Ability;
+import dnd.furkhail.bonuscalculator.domain.business.Stat;
 
-public class AbilityAdapter extends ScoreAdapter<Ability>{
+public class StatAdapter extends ScoreAdapter<Stat>{
 
     private static final String TAG = "AbilityAdapterH";
 
-    public AbilityAdapter(List<Ability> scores) {
+    public StatAdapter(List<Stat> scores) {
         super(scores);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Ability ability = mScores.get(position);
-        holder.name.setText(ability.getName());
-        holder.amount.setText(ability.getAmount()+"");
+        Stat stat = mScores.get(position);
+        holder.name.setText(stat.getName());
+        holder.amount.setText(stat.getAmount()+"");
         holder.amount.setOnClickListener(v -> {
             Log.i(TAG, "onBindViewHolder: onclicklistener fired");
-            onClickSubject.onNext(ability);
+            onClickSubject.onNext(stat);
         });
     }
 }

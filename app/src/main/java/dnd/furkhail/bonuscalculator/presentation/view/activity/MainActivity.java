@@ -1,17 +1,31 @@
 package dnd.furkhail.bonuscalculator.presentation.view.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import dnd.furkhail.bonuscalculator.MyApp;
 import dnd.furkhail.bonuscalculator.R;
 import dnd.furkhail.bonuscalculator.presentation.base.BaseActivity;
-import dnd.furkhail.bonuscalculator.presentation.view.playerCharacter.PlayerCharacterFragment;
+import dnd.furkhail.bonuscalculator.presentation.view.playercharacter.PlayerCharacterFragment;
+
 
 public class MainActivity extends BaseActivity {
+
+    @BindView(R.id.view_pager_main)
+    ViewPager mViewPager;
+
+    @BindView(R.id.tabs)
+    TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +35,15 @@ public class MainActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.initializeInjector();
-        if (savedInstanceState == null) {
-            addFragment(R.id.fragment_container, PlayerCharacterFragment.newInstance());
+        if (mViewPager != null) {
+            setupViewPager();
+            mTabLayout.setupWithViewPager(mViewPager);
         }
+
+        this.initializeInjector();
+//        if (savedInstanceState == null) {
+//            addFragment(R.id.fragment_container, PlayerCharacterFragment.newInstance());
+//        }
     }
 
     private void initializeInjector() {
@@ -32,20 +51,40 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    private void setupViewPager() {
+        Adapter adapter = new Adapter(getSupportFragmentManager());
+        adapter.addFragment(PlayerCharacterFragment.newInstance(), "Player Character");
+//        adapter.addFragment(PlayerCharacterFragment.newInstance(), "Category 2");
+//        adapter.addFragment(PlayerCharacterFragment.newInstance(), "Category 3");
+        mViewPager.setAdapter(adapter);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    static class Adapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragments = new ArrayList<>();
+        private final List<String> mFragmentTitles = new ArrayList<>();
 
-        if (id == R.id.action_settings) {
-            return true;
+        Adapter(FragmentManager fm) {
+            super(fm);
         }
 
-        return super.onOptionsItemSelected(item);
+        void addFragment(Fragment fragment, String title) {
+            mFragments.add(fragment);
+            mFragmentTitles.add(title);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitles.get(position);
+        }
     }
 }

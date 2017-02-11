@@ -40,12 +40,12 @@ public class StatusCacheImpl implements StatusCache {
             public Type getType() {
                 return super.getType();
             }
-        });
-        if(list!=null) {
+        }, new ArrayList<>());
+        if(list!=null && !list.isEmpty()) {
             Observable<List<Status>> observable = Observable.just(list);
             return observable.doOnNext(data -> statusList = data);
         }
-        return Observable.empty();
+        return null;
     }
 
     @Override

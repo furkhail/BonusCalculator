@@ -1,4 +1,4 @@
-package dnd.furkhail.bonuscalculator.presentation.view.playerCharacter;
+package dnd.furkhail.bonuscalculator.presentation.view.playercharacter;
 
 import android.util.Log;
 
@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
 import dnd.furkhail.bonuscalculator.domain.interactor.DefaultObserver;
-import dnd.furkhail.bonuscalculator.domain.interactor.playerCharacter.GetPlayerCharacterUseCase;
-import dnd.furkhail.bonuscalculator.domain.interactor.playerCharacter.UpdatePlayerCharacterUseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.playercharacter.GetPlayerCharacterUseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.playercharacter.UpdatePlayerCharacterUseCase;
 import dnd.furkhail.bonuscalculator.presentation.base.Presenter;
 
 class PlayerCharacterPresenter implements Presenter<PlayerCharacterView> {
@@ -80,7 +80,7 @@ class PlayerCharacterPresenter implements Presenter<PlayerCharacterView> {
         mGetPlayerCharacterUseCase.execute(new PlayerCharacterObserver());
     }
 
-    private void updatePlayerCharacter(PlayerCharacter playerCharacter){
+    void updatePlayerCharacter(PlayerCharacter playerCharacter){
         mUpdatePlayerCharacterUseCase.execute(new PlayerCharacterObserver(), playerCharacter);
     }
 

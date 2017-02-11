@@ -6,14 +6,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.8"
-        android:id="@+id/item_ability_name_lbl"
+        android:id="@+id/item_score_name_lbl"
         style="@style/AbilityLabel"
         />
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
-        android:id="@+id/item_ability_score_lbl"
+        android:id="@+id/item_score_amount_lbl"
         style="@style/AbilityLabel.AbilityScore"
         />
 </LinearLayout>

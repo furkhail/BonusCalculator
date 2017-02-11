@@ -5,11 +5,10 @@ import android.util.Log;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import dnd.furkhail.bonuscalculator.data.cache.playerCharacter.PlayerCharacterCache;
+import dnd.furkhail.bonuscalculator.data.cache.playercharacter.PlayerCharacterCache;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
 import dnd.furkhail.bonuscalculator.domain.repository.PlayerCharacterRepository;
 import io.reactivex.Observable;
-import io.reactivex.functions.Predicate;
 
 @Singleton
 public class PlayerCharacterDataRepository implements PlayerCharacterRepository {
@@ -29,12 +28,9 @@ public class PlayerCharacterDataRepository implements PlayerCharacterRepository 
                 mPlayerCharacterCache.memory(),
                 mPlayerCharacterCache.disk(),
                 mPlayerCharacterCache.network())
-                .filter(new Predicate<PlayerCharacter>() {
-                    @Override
-                    public boolean test(PlayerCharacter playerCharacter) throws Exception {
-                        Log.d(TAG, "test() called with: playerCharacter = [" + playerCharacter + "]");
-                        return playerCharacter != null;
-                    }
+                .filter(playerCharacter -> {
+                    Log.d(TAG, "test() called with: playerCharacter = [" + playerCharacter + "]");
+                    return playerCharacter != null;
                 });
 //        return mPlayerCharacterCache.memory();
     }
