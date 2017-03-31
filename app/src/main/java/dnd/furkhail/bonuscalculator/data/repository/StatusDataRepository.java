@@ -16,7 +16,7 @@ public class StatusDataRepository implements StatusRepository {
     private StatusCache statusCache;
 
     @Inject
-    public StatusDataRepository(StatusCache statusCache) {
+    StatusDataRepository(StatusCache statusCache) {
         this.statusCache = statusCache;
     }
 

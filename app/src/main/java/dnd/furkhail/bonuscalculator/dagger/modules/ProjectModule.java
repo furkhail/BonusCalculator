@@ -25,19 +25,19 @@ public class ProjectModule {
 
     @Provides
     @Singleton
-    StatusRepository provideStatusRepository(StatusCache statusCache){
-        return new StatusDataRepository(statusCache);
+    StatusRepository provideStatusRepository(StatusDataRepository repository){
+        return repository;
     }
 
     @Provides
     @Singleton
-    PlayerCharacterCache providePlayerCharacterCache(DiskCache diskCache){
-        return new PlayerCharacterCacheImpl(diskCache);
+    PlayerCharacterRepository providePlayerCharacterRepository(PlayerCharacterDataRepository repository){
+        return repository;
     }
 
     @Provides
     @Singleton
-    PlayerCharacterRepository providePlayerCharacterRepository(PlayerCharacterCache playerCharacterCache){
-        return new PlayerCharacterDataRepository(playerCharacterCache);
+    PlayerCharacterCache providePlayerCharacterCache(PlayerCharacterCacheImpl cache){
+        return cache;
     }
 }
