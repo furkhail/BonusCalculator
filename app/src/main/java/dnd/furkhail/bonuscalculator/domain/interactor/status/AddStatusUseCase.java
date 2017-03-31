@@ -7,11 +7,11 @@ import javax.inject.Inject;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
-import dnd.furkhail.bonuscalculator.domain.interactor.UseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.base.UseCaseMaybe;
 import dnd.furkhail.bonuscalculator.domain.repository.StatusRepository;
-import io.reactivex.Observable;
+import io.reactivex.Maybe;
 
-public class AddStatusUseCase extends UseCase<List<Status>, Status> {
+public class AddStatusUseCase extends UseCaseMaybe<List<Status>, Status> {
 
     private final StatusRepository statusRepository;
 
@@ -22,7 +22,7 @@ public class AddStatusUseCase extends UseCase<List<Status>, Status> {
     }
 
     @Override
-    public Observable<List<Status>> buildUseCaseObservable(Status status) {
+    public Maybe<List<Status>> buildUseCaseMaybe(Status status) {
         return statusRepository.addStatus(status);
     }
 }

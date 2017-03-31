@@ -7,11 +7,11 @@ import javax.inject.Inject;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
-import dnd.furkhail.bonuscalculator.domain.interactor.UseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.base.UseCaseObservable;
 import dnd.furkhail.bonuscalculator.domain.repository.StatusRepository;
 import io.reactivex.Observable;
 
-public class GetStatusListUseCase extends UseCase<List<Status>, Void> {
+public class GetStatusListUseCase extends UseCaseObservable<List<Status>, Void> {
 
     private final StatusRepository statusRepository;
 

@@ -24,8 +24,16 @@ public class DiskCache {
         library.put(key,data);
     }
 
+    public <T> T get(String key, Class<T> classOf){
+        return get(key, classOf, null);
+    }
+
     public <T> T get(String key, Class<T> classOf, T defaultValue){
         return library.get(key, classOf, defaultValue);
+    }
+
+    public <T> T get(String key, TypeToken<T> typeToken){
+        return get(key, typeToken, null);
     }
 
     public <T> T get(String key, TypeToken<T> typeToken, T defaultValue){

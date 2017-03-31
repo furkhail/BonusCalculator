@@ -4,11 +4,11 @@ import javax.inject.Inject;
 
 import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
-import dnd.furkhail.bonuscalculator.domain.interactor.UseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.base.UseCaseSingle;
 import dnd.furkhail.bonuscalculator.domain.repository.StatusRepository;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
-public class RemoveStatusUseCase extends UseCase<Boolean, String> {
+public class RemoveStatusUseCase extends UseCaseSingle<Boolean, String> {
 
     private final StatusRepository statusRepository;
 
@@ -19,7 +19,7 @@ public class RemoveStatusUseCase extends UseCase<Boolean, String> {
     }
 
     @Override
-    public Observable<Boolean> buildUseCaseObservable(String statusName) {
-        return Observable.just(statusRepository.removeStatus(statusName));
+    public Single<Boolean> buildUseCaseSingle(String statusName) {
+        return Single.fromCallable(() -> statusRepository.removeStatus(statusName));
     }
 }

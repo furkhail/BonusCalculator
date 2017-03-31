@@ -1,4 +1,4 @@
-package dnd.furkhail.bonuscalculator.domain.interactor;
+package dnd.furkhail.bonuscalculator.domain.interactor.base;
 
 import android.util.Log;
 
@@ -6,29 +6,18 @@ import dagger.internal.Preconditions;
 import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
 import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 
-public abstract class UseCase<T, Params> {
+public abstract class UseCaseObservable<T, Params> extends UseCase<T, Params>{
 
     private static final String TAG = "UseCase";
 
-    private final ThreadExecutor threadExecutor;
-    private final PostExecutionThread postExecutionThread;
-    private final CompositeDisposable disposables;
-
-    public UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
-        this.threadExecutor = threadExecutor;
-        this.postExecutionThread = postExecutionThread;
-        this.disposables = new CompositeDisposable();
+    public UseCaseObservable(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+        super(threadExecutor, postExecutionThread);
     }
 
-    /**
-     * Builds an {@link Observable} which will be used when executing the current {@link UseCase}.
-     */
     public abstract Observable<T> buildUseCaseObservable(Params params);
 
     /**
@@ -50,21 +39,6 @@ public abstract class UseCase<T, Params> {
     public void execute(DisposableObserver<T> observer){
         execute(observer, null);
     }
-    /**
-     * Dispose from current {@link CompositeDisposable}.
-     */
-    public void dispose() {
-        if (!disposables.isDisposed()) {
-            disposables.dispose();
-        }
-    }
 
-    /**
-     * Dispose from current {@link CompositeDisposable}.
-     */
-    private void addDisposable(Disposable disposable) {
-        Preconditions.checkNotNull(disposable);
-        Preconditions.checkNotNull(disposables);
-        disposables.add(disposable);
-    }
+
 }
