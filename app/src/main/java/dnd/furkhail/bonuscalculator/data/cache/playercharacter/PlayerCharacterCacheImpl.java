@@ -2,6 +2,8 @@ package dnd.furkhail.bonuscalculator.data.cache.playercharacter;
 
 import android.util.Log;
 
+import javax.inject.Inject;
+
 import dnd.furkhail.bonuscalculator.data.cache.DiskCache;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
 import io.reactivex.Observable;
@@ -16,6 +18,7 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
 
     private DiskCache diskCache;
 
+    @Inject
     public PlayerCharacterCacheImpl(DiskCache diskCache) {
         Log.d(TAG, "PlayerCharacterCacheImpl() called with: diskCache = [" + diskCache + "]");
         this.mPlayerCharacter = new PlayerCharacter();
