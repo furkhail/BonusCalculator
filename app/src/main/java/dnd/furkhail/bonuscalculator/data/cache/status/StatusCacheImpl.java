@@ -8,11 +8,11 @@ import java.util.List;
 
 import dnd.furkhail.bonuscalculator.data.cache.DiskCache;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
-import io.reactivex.Observable;
+import io.reactivex.Maybe;
 
 public class StatusCacheImpl implements StatusCache {
 
-    private static final String STATUS_LIST_KEY="status_list_key";
+    private static final String STATUS_LIST_KEY = "status_list_key";
 
     private List<Status> statusList;
 
@@ -29,32 +29,31 @@ public class StatusCacheImpl implements StatusCache {
     }
 
     @Override
-    public Observable<List<Status>> memory() {
-        return Observable.just(statusList);
+    public Maybe<List<Status>> memory() {
+        return Maybe.fromCallable(() -> statusList)
+                .filter(statuses -> statuses!=null && !statuses.isEmpty());
     }
 
     @Override
-    public Observable<List<Status>> disk() {
-        ArrayList<Status> list = diskCache.get(STATUS_LIST_KEY, new TypeToken<ArrayList<Status>>() {
+    public Maybe<List<Status>> disk() {
+        List<Status> list = diskCache.get(STATUS_LIST_KEY, new TypeToken<ArrayList<Status>>() {
             @Override
             public Type getType() {
                 return super.getType();
             }
         }, new ArrayList<>());
-        if(list!=null && !list.isEmpty()) {
-            Observable<List<Status>> observable = Observable.just(list);
-            return observable.doOnNext(data -> statusList = data);
-        }
-        return null;
+        return Maybe.fromCallable(() -> list)
+                .filter(statuses -> statuses!=null && !statuses.isEmpty())
+                .doOnSuccess(data -> statusList = data);
     }
 
     @Override
-    public Observable<List<Status>> network() {
-        return null;
+    public Maybe<List<Status>> network() {
+        return Maybe.empty();
     }
 
     @Override
-    public Observable<List<Status>> addStatus(Status status) {
+    public Maybe<List<Status>> addStatus(Status status) {
         if(!statusList.contains(status)){
             statusList.add(status);
         }
@@ -64,6 +63,9 @@ public class StatusCacheImpl implements StatusCache {
 
     @Override
     public boolean removeStatus(String name) {
+
+
+
         boolean deleted = false;
         for(Status s: statusList){
             if(name.equals(s.getName())){

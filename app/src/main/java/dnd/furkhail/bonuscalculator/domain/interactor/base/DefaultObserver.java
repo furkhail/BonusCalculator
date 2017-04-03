@@ -1,4 +1,4 @@
-package dnd.furkhail.bonuscalculator.domain.interactor;
+package dnd.furkhail.bonuscalculator.domain.interactor.base;
 
 
 import io.reactivex.observers.DisposableObserver;

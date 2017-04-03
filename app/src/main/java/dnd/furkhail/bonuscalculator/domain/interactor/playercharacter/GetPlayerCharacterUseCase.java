@@ -5,24 +5,24 @@ import javax.inject.Inject;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
 import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
-import dnd.furkhail.bonuscalculator.domain.interactor.UseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.base.UseCaseObservable;
 import dnd.furkhail.bonuscalculator.domain.repository.PlayerCharacterRepository;
 import io.reactivex.Observable;
 
-public class UpdatePlayerCharacterUseCase extends UseCase<PlayerCharacter, PlayerCharacter> {
+public class GetPlayerCharacterUseCase extends UseCaseObservable<PlayerCharacter, Void> {
 
     private final PlayerCharacterRepository mPlayerCharacterRepository;
 
     @Inject
-    UpdatePlayerCharacterUseCase(PlayerCharacterRepository playerCharacterRepository,
-                                 ThreadExecutor threadExecutor,
-                                 PostExecutionThread postExecutionThread) {
+    GetPlayerCharacterUseCase(PlayerCharacterRepository playerCharacterRepository,
+                              ThreadExecutor threadExecutor,
+                              PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         this.mPlayerCharacterRepository = playerCharacterRepository;
     }
 
     @Override
-    public Observable<PlayerCharacter> buildUseCaseObservable(PlayerCharacter playerCharacter) {
-        return mPlayerCharacterRepository.updatePlayerCharacter(playerCharacter);
+    public Observable<PlayerCharacter> buildUseCaseObservable(Void aVoid) {
+        return mPlayerCharacterRepository.getPlayerCharacter();
     }
 }

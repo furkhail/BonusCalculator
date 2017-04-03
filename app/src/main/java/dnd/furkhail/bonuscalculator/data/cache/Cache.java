@@ -1,15 +1,15 @@
 package dnd.furkhail.bonuscalculator.data.cache;
 
-import io.reactivex.Observable;
+import io.reactivex.Maybe;
 
 public interface Cache<T> {
 
     void clearMemory();
 
-    Observable<T> memory();
+    Maybe<T> memory();
 
-    Observable<T> disk();
+    Maybe<T> disk();
 
-    Observable<T> network();
+    Maybe<T> network();
 
 }

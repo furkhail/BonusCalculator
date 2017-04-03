@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import dnd.furkhail.bonuscalculator.data.cache.DiskCache;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
-import io.reactivex.Observable;
+import io.reactivex.Maybe;
 
 public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
 
@@ -31,28 +31,26 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
     }
 
     @Override
-    public Observable<PlayerCharacter> memory() {
+    public Maybe<PlayerCharacter> memory() {
         Log.d(TAG, "memory() called: "+mPlayerCharacter);
-        return Observable.just(mPlayerCharacter);
+        return Maybe.fromCallable(() -> mPlayerCharacter)
+                .filter(playerCharacter -> playerCharacter != null);
     }
 
     @Override
-    public Observable<PlayerCharacter> disk() {
-        PlayerCharacter playerCharacter = diskCache.get(PLAYER_CHARACTER_KEY, PlayerCharacter.class, null);
-        if (playerCharacter != null) {
-            Observable<PlayerCharacter> observable = Observable.just(playerCharacter);
-            return observable.doOnNext(data -> mPlayerCharacter = data);
-        }
-        return Observable.empty();
+    public Maybe<PlayerCharacter> disk() {
+        return Maybe.fromCallable(() -> diskCache.get(PLAYER_CHARACTER_KEY, PlayerCharacter.class))
+                .filter(playerCharacter -> playerCharacter != null)
+                .doOnSuccess(data -> mPlayerCharacter = data);
     }
 
     @Override
-    public Observable<PlayerCharacter> network() {
-        return Observable.empty();
+    public Maybe<PlayerCharacter> network() {
+        return Maybe.empty();
     }
 
     @Override
-    public Observable<PlayerCharacter> write(PlayerCharacter playerCharacter) {
+    public Maybe<PlayerCharacter> write(PlayerCharacter playerCharacter) {
         if (playerCharacter != null) {
             mPlayerCharacter = playerCharacter;
             diskCache.put(PLAYER_CHARACTER_KEY, playerCharacter);
