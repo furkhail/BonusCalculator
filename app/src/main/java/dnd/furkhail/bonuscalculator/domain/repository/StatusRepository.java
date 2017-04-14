@@ -4,7 +4,6 @@ import java.util.List;
 
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import io.reactivex.Maybe;
-import io.reactivex.Observable;
 
 public interface StatusRepository {
 
@@ -12,5 +11,5 @@ public interface StatusRepository {
 
     boolean removeStatus(String name);
 
-    Observable<List<Status>> getStatusList();
+    Maybe<List<Status>> getStatusList();
 }
