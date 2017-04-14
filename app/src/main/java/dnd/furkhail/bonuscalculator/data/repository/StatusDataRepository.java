@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import dnd.furkhail.bonuscalculator.data.cache.status.StatusCache;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.repository.StatusRepository;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 @Singleton
@@ -21,7 +22,7 @@ public class StatusDataRepository implements StatusRepository {
     }
 
     @Override
-    public Observable<List<Status>> addStatus(Status status) {
+    public Maybe<List<Status>> addStatus(Status status) {
         return statusCache.addStatus(status);
     }
 
@@ -32,7 +33,8 @@ public class StatusDataRepository implements StatusRepository {
 
     @Override
     public Observable<List<Status>> getStatusList() {
-        return Observable.concat(statusCache.memory(), statusCache.disk(), statusCache.network())
-                .filter(data -> data != null);
+        return Maybe.concat(statusCache.memory(), statusCache.disk(), statusCache.network())
+                .filter(data -> data != null)
+                .toObservable();
     }
 }

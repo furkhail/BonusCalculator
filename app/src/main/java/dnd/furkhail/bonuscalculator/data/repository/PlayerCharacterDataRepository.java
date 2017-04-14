@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import dnd.furkhail.bonuscalculator.data.cache.playercharacter.PlayerCharacterCache;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
 import dnd.furkhail.bonuscalculator.domain.repository.PlayerCharacterRepository;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 @Singleton
@@ -18,25 +19,24 @@ public class PlayerCharacterDataRepository implements PlayerCharacterRepository 
     private PlayerCharacterCache mPlayerCharacterCache;
 
     @Inject
-    public PlayerCharacterDataRepository(PlayerCharacterCache playerCharacterCache) {
+    PlayerCharacterDataRepository(PlayerCharacterCache playerCharacterCache) {
         mPlayerCharacterCache = playerCharacterCache;
     }
 
     @Override
     public Observable<PlayerCharacter> getPlayerCharacter() {
-        return Observable.concat(
+        return Maybe.concat(
                 mPlayerCharacterCache.memory(),
                 mPlayerCharacterCache.disk(),
                 mPlayerCharacterCache.network())
                 .filter(playerCharacter -> {
-                    Log.d(TAG, "test() called with: playerCharacter = [" + playerCharacter + "]");
+                    Log.d(TAG, "filter() called with: playerCharacter = [" + playerCharacter + "]");
                     return playerCharacter != null;
-                });
-//        return mPlayerCharacterCache.memory();
+                }).toObservable();
     }
 
     @Override
-    public Observable<PlayerCharacter> updatePlayerCharacter(PlayerCharacter playerCharacter) {
+    public Maybe<PlayerCharacter> updatePlayerCharacter(PlayerCharacter playerCharacter) {
         return mPlayerCharacterCache.write(playerCharacter);
     }
 }

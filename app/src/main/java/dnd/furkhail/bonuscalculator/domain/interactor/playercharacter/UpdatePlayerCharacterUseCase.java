@@ -5,11 +5,11 @@ import javax.inject.Inject;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
 import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
-import dnd.furkhail.bonuscalculator.domain.interactor.UseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.base.UseCaseMaybe;
 import dnd.furkhail.bonuscalculator.domain.repository.PlayerCharacterRepository;
-import io.reactivex.Observable;
+import io.reactivex.Maybe;
 
-public class UpdatePlayerCharacterUseCase extends UseCase<PlayerCharacter, PlayerCharacter> {
+public class UpdatePlayerCharacterUseCase extends UseCaseMaybe<PlayerCharacter, PlayerCharacter> {
 
     private final PlayerCharacterRepository mPlayerCharacterRepository;
 
@@ -22,7 +22,7 @@ public class UpdatePlayerCharacterUseCase extends UseCase<PlayerCharacter, Playe
     }
 
     @Override
-    public Observable<PlayerCharacter> buildUseCaseObservable(PlayerCharacter playerCharacter) {
+    public Maybe<PlayerCharacter> buildUseCaseMaybe(PlayerCharacter playerCharacter) {
         return mPlayerCharacterRepository.updatePlayerCharacter(playerCharacter);
     }
 }

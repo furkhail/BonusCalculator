@@ -5,11 +5,11 @@ import javax.inject.Inject;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
 import dnd.furkhail.bonuscalculator.domain.executor.PostExecutionThread;
 import dnd.furkhail.bonuscalculator.domain.executor.ThreadExecutor;
-import dnd.furkhail.bonuscalculator.domain.interactor.UseCase;
+import dnd.furkhail.bonuscalculator.domain.interactor.base.UseCaseObservable;
 import dnd.furkhail.bonuscalculator.domain.repository.PlayerCharacterRepository;
 import io.reactivex.Observable;
 
-public class GetPlayerCharacterUseCase extends UseCase<PlayerCharacter, Void> {
+public class GetPlayerCharacterUseCase extends UseCaseObservable<PlayerCharacter, Void> {
 
     private final PlayerCharacterRepository mPlayerCharacterRepository;
 
