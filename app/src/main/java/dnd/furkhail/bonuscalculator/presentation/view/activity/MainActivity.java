@@ -17,6 +17,7 @@ import dnd.furkhail.bonuscalculator.MyApp;
 import dnd.furkhail.bonuscalculator.R;
 import dnd.furkhail.bonuscalculator.presentation.base.BaseActivity;
 import dnd.furkhail.bonuscalculator.presentation.view.playercharacter.PlayerCharacterFragment;
+import dnd.furkhail.bonuscalculator.presentation.view.statuslist.StatusListFragment;
 
 
 public class MainActivity extends BaseActivity {
@@ -54,7 +55,7 @@ public class MainActivity extends BaseActivity {
     private void setupViewPager() {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(PlayerCharacterFragment.newInstance(), "Player Character");
-//        adapter.addFragment(PlayerCharacterFragment.newInstance(), "Category 2");
+        adapter.addFragment(StatusListFragment.newInstance(), "Status List");
 //        adapter.addFragment(PlayerCharacterFragment.newInstance(), "Category 3");
         mViewPager.setAdapter(adapter);
     }

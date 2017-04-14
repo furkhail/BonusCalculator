@@ -30,6 +30,7 @@ import dnd.furkhail.bonuscalculator.domain.business.Stat;
 import dnd.furkhail.bonuscalculator.presentation.base.BaseFragment;
 import dnd.furkhail.bonuscalculator.presentation.view.adapter.AbilityAdapter;
 import dnd.furkhail.bonuscalculator.presentation.view.adapter.StatAdapter;
+import io.reactivex.functions.Consumer;
 
 public class PlayerCharacterFragment extends BaseFragment implements PlayerCharacterView {
 

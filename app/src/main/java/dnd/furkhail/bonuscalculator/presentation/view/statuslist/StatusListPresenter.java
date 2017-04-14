@@ -1,6 +1,7 @@
 package dnd.furkhail.bonuscalculator.presentation.view.statuslist;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ import dnd.furkhail.bonuscalculator.domain.interactor.status.GetStatusListUseCas
 import dnd.furkhail.bonuscalculator.presentation.base.Presenter;
 
 class StatusListPresenter implements Presenter<StatusListView> {
+
+    private static final String TAG = "StatusListPresenter";
 
     private final GetStatusListUseCase mGetStatusListUseCase;
     private final AddStatusUseCase mAddStatusUseCase;
@@ -27,8 +30,10 @@ class StatusListPresenter implements Presenter<StatusListView> {
     }
 
     @Override
-    public void setView(@NonNull StatusListView view) {
+    public void setView(StatusListView view) {
+        Log.i(TAG, "setView: pre");
         mStatusListView = view;
+        Log.i(TAG, "setView: pos");
     }
 
     @Override
