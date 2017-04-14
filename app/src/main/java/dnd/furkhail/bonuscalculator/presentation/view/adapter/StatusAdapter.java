@@ -17,7 +17,7 @@ import dnd.furkhail.bonuscalculator.domain.business.Status;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public class StatusAdapter<T> extends RecyclerView.Adapter<StatusAdapter.ViewHolder>{
+public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder>{
 
     private static final String TAG = "StatusAdapter";
 
@@ -41,8 +41,7 @@ public class StatusAdapter<T> extends RecyclerView.Adapter<StatusAdapter.ViewHol
         Status status = mStatusList.get(position);
         holder.name.setText(status.getName());
         holder.active.setChecked(status.isActive());
-
-        Log.i(TAG, "onBindViewHolder: " + position);
+        holder.statusContainer.setOnClickListener(v -> onClickSubject.onNext(status));
 
         /*
         holder.amount.setText(status.getAmount()+"");
@@ -64,6 +63,8 @@ public class StatusAdapter<T> extends RecyclerView.Adapter<StatusAdapter.ViewHol
         protected TextView name;
         @BindView(R.id.item_status_active)
         protected ToggleButton active;
+        @BindView(R.id.status_container)
+        protected View statusContainer;
 
         ViewHolder(View view){
             super(view);

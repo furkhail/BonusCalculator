@@ -9,7 +9,7 @@ public interface StatusListView extends LoadDataView {
 
     void showAddStatusDialog();
 
-    void renderStatusList(List<Status> statusListt);
+    void renderStatusList(List<Status> statusList);
 
     void viewStatus(Status status);
 }

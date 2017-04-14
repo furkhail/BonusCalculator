@@ -35,6 +35,7 @@ public class StatusDataRepository implements StatusRepository {
     public Observable<List<Status>> getStatusList() {
         return Maybe.concat(statusCache.memory(), statusCache.disk(), statusCache.network())
                 .filter(data -> data != null)
+                .firstElement()
                 .toObservable();
     }
 }

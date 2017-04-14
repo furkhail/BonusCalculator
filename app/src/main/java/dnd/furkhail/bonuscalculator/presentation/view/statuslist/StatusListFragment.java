@@ -24,6 +24,7 @@ import dnd.furkhail.bonuscalculator.dagger.components.ApplicationComponent;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.presentation.base.BaseFragment;
 import dnd.furkhail.bonuscalculator.presentation.view.adapter.StatusAdapter;
+import io.reactivex.functions.Consumer;
 
 public class StatusListFragment extends BaseFragment implements StatusListView {
 
@@ -61,7 +62,7 @@ public class StatusListFragment extends BaseFragment implements StatusListView {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         if (view != null) {
             ButterKnife.bind(this, view);
-            //mAbilityScoresRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+            mStatusScoresRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
             //mStatScoresRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         }
         return view;
@@ -70,12 +71,6 @@ public class StatusListFragment extends BaseFragment implements StatusListView {
     @Override
     public void renderStatusList(@NonNull List<Status> statusList) {
         mStatusList = statusList;
-
-        Status status1 = new Status("Furia",true, "1", null);
-        Status status2 = new Status("Flank",true, "1", null);
-
-        statusList.add(status1);
-        statusList.add(status2);
 
         Log.i(TAG, "renderStatusList");
 
@@ -87,12 +82,17 @@ public class StatusListFragment extends BaseFragment implements StatusListView {
         if (mStatusAdapter == null) {
             mStatusAdapter = new StatusAdapter(mStatusList);
             mStatusScoresRecycler.setAdapter(mStatusAdapter);
+            mStatusAdapter.getPositionClicks().subscribe(this::showAlert);
             Log.i(TAG, "setStatusAdapter: null");
 
         } else {
             Log.i(TAG, "setStatusAdapter: not null");
             mStatusAdapter.setStatusList(mStatusList);
         }
+    }
+
+    private void showAlert(Status status){
+        Log.i(TAG, "showAlert: " + status.getName());
     }
 
     public void showAddStatusDialog() {
