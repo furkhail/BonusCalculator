@@ -9,7 +9,6 @@ import dnd.furkhail.bonuscalculator.data.cache.status.StatusCache;
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.repository.StatusRepository;
 import io.reactivex.Maybe;
-import io.reactivex.Observable;
 
 @Singleton
 public class StatusDataRepository implements StatusRepository {
@@ -32,10 +31,9 @@ public class StatusDataRepository implements StatusRepository {
     }
 
     @Override
-    public Observable<List<Status>> getStatusList() {
+    public Maybe<List<Status>> getStatusList() {
         return Maybe.concat(statusCache.memory(), statusCache.disk(), statusCache.network())
                 .filter(data -> data != null)
-                .firstElement()
-                .toObservable();
+                .firstElement();
     }
 }

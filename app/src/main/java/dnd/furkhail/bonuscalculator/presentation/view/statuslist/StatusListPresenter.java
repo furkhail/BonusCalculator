@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.interactor.base.DefaultMaybeObserver;
-import dnd.furkhail.bonuscalculator.domain.interactor.base.DefaultObserver;
 import dnd.furkhail.bonuscalculator.domain.interactor.status.AddStatusUseCase;
 import dnd.furkhail.bonuscalculator.domain.interactor.status.GetStatusListUseCase;
 import dnd.furkhail.bonuscalculator.presentation.base.Presenter;
@@ -75,26 +74,10 @@ class StatusListPresenter implements Presenter<StatusListView> {
 
     public void addStatus(String input){
         Status status = new Status(input);
-        mAddStatusUseCase.execute(new StatusListMaybeObserver(), status);
+        mAddStatusUseCase.execute(new StatusListObserver(), status);
     }
 
-    private final class StatusListObserver extends DefaultObserver<List<Status>> {
-
-        @Override public void onComplete() {
-            hideViewLoading();
-        }
-
-        @Override public void onError(Throwable e) {
-            hideViewLoading();
-            showViewRetry();
-        }
-
-        @Override public void onNext(List<Status> status) {
-            showStatusListInView(status);
-        }
-    }
-
-    private final class StatusListMaybeObserver extends DefaultMaybeObserver<List<Status>> {
+    private final class StatusListObserver extends DefaultMaybeObserver<List<Status>> {
 
         @Override public void onComplete() {
             hideViewLoading();
@@ -106,6 +89,7 @@ class StatusListPresenter implements Presenter<StatusListView> {
         }
 
         @Override public void onSuccess(List<Status> status) {
+            hideViewLoading();
             showStatusListInView(status);
         }
     }
