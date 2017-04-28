@@ -2,15 +2,9 @@ package dnd.furkhail.bonuscalculator.presentation.view.playercharacter;
 
 import android.util.Log;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.inject.Inject;
 
-import dnd.furkhail.bonuscalculator.domain.business.Ability;
 import dnd.furkhail.bonuscalculator.domain.business.PlayerCharacter;
-import dnd.furkhail.bonuscalculator.domain.business.Stat;
-import dnd.furkhail.bonuscalculator.domain.business.Status;
 import dnd.furkhail.bonuscalculator.domain.interactor.base.DefaultMaybeObserver;
 import dnd.furkhail.bonuscalculator.domain.interactor.base.DefaultObserver;
 import dnd.furkhail.bonuscalculator.domain.interactor.playercharacter.GetPlayerCharacterUseCase;
@@ -121,25 +115,10 @@ class PlayerCharacterPresenter implements Presenter<PlayerCharacterView> {
             Log.d(TAG, "onNext() called with: playerCharacter = [" + playerCharacter + "]");
             hideViewLoading();
 
-            PlayerCharacter uiPC = new PlayerCharacter();
+            PlayerCharacter uiPC = new PlayerCharacter(playerCharacter);
 
-            uiPC.setName(playerCharacter.getName());
-            uiPC.setSize(playerCharacter.getSize());
-            uiPC.setRace(playerCharacter.getRace());
+            showPlayerCharacter(uiPC);
 
-            List<Ability> abilityList = new LinkedList<>();
-            abilityList.addAll(playerCharacter.getAbilities());
-            uiPC.setAbilities(abilityList);
-
-            List<Stat> statList = new LinkedList<>();
-            statList.addAll(playerCharacter.getStats());
-            uiPC.setStats(statList);
-
-            List<Status> statusList = new LinkedList<>();
-            statusList.addAll(playerCharacter.getStatuses());
-            uiPC.setStatuses(statusList);
-
-            showPlayerCharacter(playerCharacter);
             initializing = false;
         }
 
