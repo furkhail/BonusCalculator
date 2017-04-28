@@ -1,7 +1,5 @@
 package dnd.furkhail.bonuscalculator.data.cache.playercharacter;
 
-import android.util.Log;
-
 import javax.inject.Inject;
 
 import dnd.furkhail.bonuscalculator.data.cache.DiskCache;
@@ -20,9 +18,13 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
 
     @Inject
     public PlayerCharacterCacheImpl(DiskCache diskCache) {
-        Log.d(TAG, "PlayerCharacterCacheImpl() called with: diskCache = [" + diskCache + "]");
-        this.mPlayerCharacter = new PlayerCharacter();
         this.diskCache = diskCache;
+        mock();
+    }
+
+    private void mock(){
+        disk().filter(data -> data != null)
+                .doOnComplete(() -> write(new PlayerCharacter()));
     }
 
     @Override
@@ -32,7 +34,6 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
 
     @Override
     public Maybe<PlayerCharacter> memory() {
-        Log.d(TAG, "memory() called: "+mPlayerCharacter);
         return Maybe.fromCallable(() -> mPlayerCharacter)
                 .filter(playerCharacter -> playerCharacter != null);
     }
@@ -41,7 +42,8 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
     public Maybe<PlayerCharacter> disk() {
         return Maybe.fromCallable(() -> diskCache.get(PLAYER_CHARACTER_KEY, PlayerCharacter.class))
                 .filter(playerCharacter -> playerCharacter != null)
-                .doOnSuccess(data -> mPlayerCharacter = data);
+                .doOnSuccess(playerCharacter -> mPlayerCharacter = playerCharacter);
+
     }
 
     @Override
