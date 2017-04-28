@@ -23,8 +23,7 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
     }
 
     private void mock(){
-        disk().filter(data -> data != null)
-                .doOnComplete(() -> write(new PlayerCharacter()));
+        disk().doOnComplete(() -> write(new PlayerCharacter()));
     }
 
     @Override
@@ -43,7 +42,6 @@ public class PlayerCharacterCacheImpl implements PlayerCharacterCache {
         return Maybe.fromCallable(() -> diskCache.get(PLAYER_CHARACTER_KEY, PlayerCharacter.class))
                 .filter(playerCharacter -> playerCharacter != null)
                 .doOnSuccess(playerCharacter -> mPlayerCharacter = playerCharacter);
-
     }
 
     @Override
