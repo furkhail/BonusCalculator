@@ -116,7 +116,7 @@ public class PlayerCharacterFragment extends BaseFragment implements PlayerChara
             mStatAdapter.getPositionClicks()
                     .subscribe(this::showStatAmountDialog, Throwable::printStackTrace);
         } else {
-            mStatAdapter.setScores(mPlayerCharacter.getStats());
+            mStatAdapter.setStats(mPlayerCharacter.getStats());
         }
     }
 
@@ -127,7 +127,7 @@ public class PlayerCharacterFragment extends BaseFragment implements PlayerChara
             mAbilityAdapter.getPositionClicks()
                     .subscribe(this::showChangeAbilityDialog, Throwable::printStackTrace);
         } else {
-            mAbilityAdapter.setScores(mPlayerCharacter.getAbilities());
+            mAbilityAdapter.setAbilitiesScores(mPlayerCharacter.getAbilities());
         }
     }
 
