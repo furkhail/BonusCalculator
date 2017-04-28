@@ -114,7 +114,11 @@ class PlayerCharacterPresenter implements Presenter<PlayerCharacterView> {
         public void onSuccess(PlayerCharacter playerCharacter) {
             Log.d(TAG, "onNext() called with: playerCharacter = [" + playerCharacter + "]");
             hideViewLoading();
-            showPlayerCharacter(playerCharacter);
+
+            PlayerCharacter uiPC = new PlayerCharacter(playerCharacter);
+
+            showPlayerCharacter(uiPC);
+
             initializing = false;
         }
 

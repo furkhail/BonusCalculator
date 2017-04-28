@@ -3,6 +3,7 @@ package dnd.furkhail.bonuscalculator.domain.business;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PlayerCharacter {
@@ -27,11 +28,29 @@ public class PlayerCharacter {
         this.statuses = statuses;
     }
 
+    public PlayerCharacter (PlayerCharacter playerCharacter){
+
+        setName(playerCharacter.getName());
+        setSize(playerCharacter.getSize());
+        setRace(playerCharacter.getRace());
+
+        List<Ability> abilityList = new LinkedList<>();
+        abilityList.addAll(playerCharacter.getAbilities());
+        setAbilities(abilityList);
+
+        List<Stat> statList = new LinkedList<>();
+        statList.addAll(playerCharacter.getStats());
+        setStats(statList);
+
+        List<Status> statusList = new LinkedList<>();
+        statusList.addAll(playerCharacter.getStatuses());
+        setStatuses(statusList);
+
+    }
+
     public PlayerCharacter(){
         this("","","",initAbilitiesPathfinder(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
-
-
 
     public String getName() {
         return name;

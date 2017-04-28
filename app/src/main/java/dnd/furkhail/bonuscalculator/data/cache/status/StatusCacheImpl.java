@@ -30,8 +30,7 @@ public class StatusCacheImpl implements StatusCache {
 
     @Override
     public Maybe<List<Status>> memory() {
-        return Maybe.fromCallable(() -> statusList)
-                .filter(statuses -> statuses!=null && !statuses.isEmpty());
+        return Maybe.fromCallable(() -> statusList).filter(statuses -> statuses!=null && !statuses.isEmpty());
     }
 
     @Override

@@ -2,6 +2,7 @@ package dnd.furkhail.bonuscalculator.presentation.view.statuslist;
 
 import android.support.annotation.NonNull;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -83,9 +84,14 @@ class StatusListPresenter implements Presenter<StatusListView> {
             showViewRetry();
         }
 
-        @Override public void onSuccess(List<Status> status) {
+        @Override public void onSuccess(List<Status> statusList) {
             hideViewLoading();
-            showStatusListInView(status);
+
+            List<Status> uiList =new LinkedList<>();
+
+            uiList.addAll(statusList);
+
+            showStatusListInView(uiList);
         }
     }
 
