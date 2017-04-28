@@ -1,7 +1,6 @@
 package dnd.furkhail.bonuscalculator.presentation.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ public class AbilityAdapter extends RecyclerView.Adapter<AbilityAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_score, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_score, null);
         return new ViewHolder(view);
     }
 
@@ -36,11 +35,9 @@ public class AbilityAdapter extends RecyclerView.Adapter<AbilityAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         Ability ability = mAbilitiesScores.get(position);
         holder.name.setText(ability.getName());
-        holder.amount.setText(ability.getAmount()+"");
-        holder.amount.setOnClickListener(v -> {
-            Log.i(TAG, "onBindViewHolder: onclicklistener fired");
-            onClickSubject.onNext(ability);
-        });
+        String amountText = ability.getAmount() + "";
+        holder.amount.setText(amountText);
+        holder.amount.setOnClickListener(v -> onClickSubject.onNext(ability));
     }
 
     @Override

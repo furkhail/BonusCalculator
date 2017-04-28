@@ -15,8 +15,6 @@ import dnd.furkhail.bonuscalculator.domain.business.Stat;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-import static android.icu.text.RelativeDateTimeFormatter.Direction.THIS;
-
 public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder>{
 
     private List<Stat> mStats;
@@ -38,7 +36,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder>{
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_score, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_score, null);
         return new ViewHolder(view);
     }
 
