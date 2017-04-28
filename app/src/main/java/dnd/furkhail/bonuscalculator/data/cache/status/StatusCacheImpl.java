@@ -63,9 +63,6 @@ public class StatusCacheImpl implements StatusCache {
 
     @Override
     public boolean removeStatus(String name) {
-
-
-
         boolean deleted = false;
         for(Status s: statusList){
             if(name.equals(s.getName())){
